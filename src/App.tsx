@@ -14,6 +14,7 @@ import ShareCard from './components/ShareCard'
 import type { FaceAnalysisResult, Gender } from './types'
 import { getScoreColorMap } from './types'
 import { useFaceAnalysis } from './hooks/useFaceAnalysis'
+import { DISCLAIMER } from './config/disclaimer'
 
 // ============================================================
 // Header 组件
@@ -124,6 +125,16 @@ function ResultView({ result, imageUrl, onRestart }: ResultViewProps) {
       {/* 化妆建议 */}
       <MakeupAdviceList advices={result.makeupAdvices} />
 
+      {/* 免责声明 */}
+      <div
+        className="mt-6 mb-2 mx-2 rounded-[12px] px-4 py-3"
+        style={{ background: 'rgba(0,0,0,0.02)', border: '1px solid rgba(0,0,0,0.04)' }}
+      >
+        <p className="text-xs leading-relaxed text-center" style={{ color: '#C8C4C0' }}>
+          {DISCLAIMER.full}
+        </p>
+      </div>
+
       {/* 底部操作栏 */}
       <div
         className="fixed bottom-0 left-0 right-0 safe-bottom"
@@ -215,10 +226,15 @@ function HomeView({ onImageSelected, gender, onGenderChange }: HomeViewProps) {
         ))}
       </div>
 
-      {/* 隐私说明 */}
-      <p className="text-xs text-center mt-5" style={{ color: '#D6D3D1' }}>
-        🔒 照片在本地处理，不上传服务器，保护您的隐私
-      </p>
+      {/* 隐私 + 免责说明 */}
+      <div className="text-center mt-5 space-y-1.5">
+        <p className="text-xs" style={{ color: '#D6D3D1' }}>
+          🔒 照片在本地处理，不上传服务器，保护您的隐私
+        </p>
+        <p className="text-xs leading-relaxed px-2" style={{ color: '#D6D3D1' }}>
+          {DISCLAIMER.short}
+        </p>
+      </div>
     </motion.div>
   )
 }

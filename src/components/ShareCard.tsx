@@ -1,5 +1,6 @@
 import type { FaceAnalysisResult } from '../types'
 import { getScoreColorMap } from '../types'
+import { DISCLAIMER } from '../config/disclaimer'
 
 interface ShareCardProps {
   result: FaceAnalysisResult
@@ -252,7 +253,7 @@ export default function ShareCard({ result, imageUrl }: ShareCardProps) {
         }}
       >
         <div style={{ fontSize: '11px', color: '#D6D3D1' }}>
-          扫码体验 · facescore.pages.dev
+          {DISCLAIMER.shareWatermark} · facescore.pages.dev
         </div>
       </div>
     </div>
