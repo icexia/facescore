@@ -1,0 +1,320 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================
+   CSS 全局变量（基于 DESIGN.md 配色方案）
+   ========================================== */
+
+:root {
+  /* 渐变 */
+  --gradient-primary: linear-gradient(135deg, #FF6B9D 0%, #C084FC 100%);
+  --gradient-primary-soft: linear-gradient(135deg, rgba(255,107,157,0.12) 0%, rgba(192,132,252,0.12) 100%);
+  --gradient-alt: linear-gradient(135deg, #F472B6 0%, #FB923C 100%);
+  --gradient-deep: linear-gradient(135deg, #EC4899 0%, #A855F7 100%);
+
+  /* 背景 */
+  --bg-base: #FAFAF9;
+  --bg-soft: #F5F3F4;
+  --bg-glass: rgba(255, 255, 255, 0.72);
+  --bg-glass-dark: rgba(255, 255, 255, 0.12);
+  --bg-overlay: rgba(0, 0, 0, 0.40);
+
+  /* 文字 */
+  --text-primary: #1C1917;
+  --text-secondary: #57534E;
+  --text-tertiary: #A8A29E;
+  --text-disabled: #D6D3D1;
+  --text-on-gradient: #FFFFFF;
+
+  /* 功能色 */
+  --color-success: #22C55E;
+  --color-success-light: #F0FDF4;
+  --color-warning: #F59E0B;
+  --color-warning-light: #FFFBEB;
+  --color-error: #EF4444;
+  --color-error-light: #FEF2F2;
+  --color-info: #3B82F6;
+  --color-info-light: #EFF6FF;
+
+  /* 间距 */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* 圆角 */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+
+  /* 动画时间函数 */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out: cubic-bezier(0.0, 0.0, 0.2, 1.0);
+  --ease-in: cubic-bezier(0.4, 0.0, 1.0, 1.0);
+  --ease-standard: cubic-bezier(0.4, 0.0, 0.2, 1.0);
+
+  /* 阴影 */
+  --shadow-card: 0 4px 24px rgba(255, 107, 157, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04);
+  --shadow-card-hover: 0 8px 32px rgba(255, 107, 157, 0.16), 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-btn: 0 4px 16px rgba(255, 107, 157, 0.40);
+  --shadow-btn-hover: 0 8px 24px rgba(255, 107, 157, 0.55);
+  --shadow-glow: 0 0 40px rgba(255, 107, 157, 0.30);
+  --shadow-input-focus: 0 0 0 3px rgba(255, 107, 157, 0.20);
+}
+
+/* 深色模式 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-base: #0C0A09;
+    --bg-soft: #1C1917;
+    --bg-glass: rgba(28, 25, 23, 0.72);
+    --bg-glass-dark: rgba(255, 255, 255, 0.08);
+    --text-primary: #FAFAF9;
+    --text-secondary: #A8A29E;
+    --text-tertiary: #57534E;
+  }
+}
+
+/* ==========================================
+   基础样式重置
+   ========================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+#root {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==========================================
+   实用样式类
+   ========================================== */
+
+/* 渐变文字 */
+.gradient-text {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 渐变背景按钮 */
+.btn-gradient {
+  background: var(--gradient-primary);
+  box-shadow: var(--shadow-btn);
+  transition: all 0.2s ease;
+}
+
+.btn-gradient:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-btn-hover);
+}
+
+.btn-gradient:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 2px 8px rgba(255, 107, 157, 0.30);
+}
+
+.btn-gradient:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: var(--shadow-btn);
+}
+
+/* 毛玻璃效果卡片 */
+.glass-card {
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.80);
+  box-shadow: var(--shadow-card);
+  border-radius: var(--radius-xl);
+}
+
+/* 卡片悬浮效果 */
+.card-hover {
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* 扫描线动画 */
+@keyframes scanLine {
+  0%   { top: 0%; opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+/* 人脸点脉冲动画 */
+@keyframes faceDotPulse {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50%       { opacity: 1;   transform: scale(1.2); }
+}
+
+/* 外圈旋转动画 */
+@keyframes ringRotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* 卡片滑入动画 */
+@keyframes cardSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(32px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* 涟漪动画 */
+@keyframes ripple {
+  from {
+    width: 0; height: 0;
+    opacity: 0.4;
+    transform: translate(-50%, -50%);
+  }
+  to {
+    width: 200px; height: 200px;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* 淡入动画 */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* 上滑淡入 */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* 弹入动画 */
+@keyframes springIn {
+  from { opacity: 0; transform: scale(0.5); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* 动画工具类 */
+.animate-scan-line {
+  animation: scanLine 2s ease-in-out infinite;
+}
+
+.animate-face-dot {
+  animation: faceDotPulse 1s ease-in-out infinite;
+}
+
+.animate-ring-rotate {
+  animation: ringRotate 3s linear infinite;
+}
+
+.animate-card-slide-in {
+  animation: cardSlideIn 400ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.animate-ripple {
+  animation: ripple 600ms ease-out;
+}
+
+.animate-fade-in {
+  animation: fadeIn 300ms ease-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 400ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.animate-spring-in {
+  animation: springIn 200ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* 卡片依次入场延迟 */
+.card:nth-child(1) { animation-delay: 0ms; }
+.card:nth-child(2) { animation-delay: 100ms; }
+.card:nth-child(3) { animation-delay: 200ms; }
+.card:nth-child(4) { animation-delay: 300ms; }
+.card:nth-child(5) { animation-delay: 400ms; }
+.card:nth-child(6) { animation-delay: 500ms; }
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 107, 157, 0.30);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 107, 157, 0.60);
+}
+
+/* 选中文字颜色 */
+::selection {
+  background: rgba(255, 107, 157, 0.20);
+  color: var(--text-primary);
+}
+
+/* 图片预览 hover */
+.preview-img:hover {
+  transform: scale(1.03);
+  transition: transform 0.3s ease;
+}
+
+/* 安全区域适配（iOS） */
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.safe-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
