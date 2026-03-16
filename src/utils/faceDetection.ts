@@ -1,7 +1,7 @@
 import * as faceapi from 'face-api.js'
 import type { AppError, FaceLandmark, ExpressionAnalysis } from '../types'
 
-const MODEL_URL = '/models'
+const MODEL_URL = './models'
 
 let modelsLoaded = false
 let modelsLoading = false
